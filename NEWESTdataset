@@ -1,0 +1,168 @@
+
+/*
+  Name:        Dataset Project (index.js)
+  Purpose:     To demonstrate my learning of concepts covered in class and relate them to data in a dataset.
+
+  Author:      Ariana Sheikh
+  Created:     13-Sept-2023
+  Updated:     30-Nov-2023
+*/
+//parent class, population (population + year)
+//child class 1 - canada homocides
+//child class 2 - cota rica homocides
+//Installing to node.js
+var FileReader = require('filereader');
+const fs = require('fs');
+
+const csvParser = require('csv-parser');
+
+//Array
+let dataArray = [];
+
+//File reading 
+fs.readFile('datasetnewest2.csv', 'utf8', (err, data) => {
+  if (err) {
+    console.error(err);
+    return;
+  }
+
+  //Stores the data into an object
+  let rows = data.split('\n');
+  let headers = rows[0].split(',');
+
+  for (let i = 1; i < rows.length; i++){
+    let values = rows[i].split(',');
+    let object = {};
+    headers.forEach((header, index) => {
+      object[header.trim()] = values[index].trim();
+    });
+    dataArray.push(object);
+  }
+  console.log(dataArray);
+
+});
+
+// source: https://datacommons.org/place/country/CAN/?utm_medium=explore&mprop=count&popt=Person&hl=en
+
+// console.log("Information regarding solely the year 1991 is placed in the file titled 'writing1991file.txt', while information regarding solely the year 2000 is placed in the file titled 'writing2000file.txt'. Information regarding both years will be printed to the console.");
+
+// writing1991 = "This file is used to store all information regarding homocides in the year 1991. ";
+// fs.writeFile("writing1991file.txt", writing1991, err => {
+//   if(err){
+//     console.error(err);
+//   }
+// });
+
+// writing2000 = "This file is used to store all information regarding homocides in the year 2000. ";
+// fs.writeFile("writing2000file.txt", writing2000, err => {
+//   if(err){
+//     console.error(err);
+//   }
+// });
+
+// // //Creating an object;
+// // let data = {};
+
+// // //In order to read the CSV file and print it by each row.
+// // fs.createReadStream('datasetnewest.csv')
+// // .pipe(csvParser())
+// // .on('data', (rows) => {
+
+// //   //Pushing the data into the object.
+// //   data = rows;
+// // })
+// // .on('end', () => {
+
+
+//   //Importing the class.
+//   const HomocidesDataset = 
+//     require("./HomocidesDataset");
+
+
+// // // Creating an array.
+// // let data = []
+// // //Reading my CSV file dataset.
+// // fs.readFile('datasetnewest.csv', 'utf8', (err, data) => {
+// //   if (err){
+// //     console.error(err);
+// //     return;
+// //   }
+
+
+
+
+//   //Creating objects from the HomocidesDataset class.
+//   let yr1991 = new HomocidesDataset ("1991", data["1991"]);
+//   let yr2000 = new HomocidesDataset ("2000", data["2000"]);
+
+//   // population source: https://datacommons.org/place/country/CAN/?utm_medium=explore&mprop=count&popt=Person&hl=en
+//   let totalHomocides2000 = yr2000.totalHomocides(30690000);
+
+//   //Writing additional information regarding the year 2000 into a file titled "writing2000file.txt".
+//   writing2000 = "In the year 2000, there were around " + Math.round(data["2000"]) + " intentional homocides out of 100,000 people, which would make a total approximation of " + Math.round(totalHomocides2000) + " intentional homocides in Canada. ";
+//   fs.appendFile("writing2000file.txt", writing2000, err => {
+//     if(err){
+//       console.error(err);
+//     }
+//   });
+
+//   //Writing additional information regarding the year 1991 into a file titled "writing1991file.txt".
+//   writing1991 = "In the year " + yr1991.year + ", there were approximately " + Math.round(yr1991.homocides) + " intentional homocides per 100,000 people in Canada. ";
+//   fs.appendFile("writing1991file.txt", writing1991, err => {
+//     if(err){
+//       console.error(err);
+//     }
+//   });
+
+//   //Using integer division and modulos in order to discover the difference between the population of 1991 and the 100,000 people range and converting this value into a string in order to write it into the 1991 file.
+//   pop1991 = 28040000;
+//   range = 100000;
+//   diff1991 = ((pop1991/range).toString());
+//   rem1991 = ((pop1991%range).toString());
+
+//   //Writing additional information redarding the year 1991 into a file titled "writing1991file.txt".
+//   writing1991 = "In the year " + yr1991.year + " there was a population of " + pop1991 + " however, the data is only accurate regarding each " + range + " people. Therefore, there is a " + diff1991 + " times difference in the accuracy of the population, with a remainder of " + rem1991 + ". ";
+//   fs.appendFile("writing1991file.txt", writing1991, err => {
+//     if(err){
+//       console.error(err);
+//     }
+//   });
+
+//   //Using division and modulos with the dataset and writing it into the file consisting of information on the year 2000.
+//   let diffYears = (Number(data["1991"] / data["2000"])).toFixed(1);
+//   let remYears = (Number(data["1991"] % data["2000"])).toFixed(1);
+//   console.log("There were approximately " + diffYears + " times more intentional homocides in the year of 1991 than the year 2000 in Canada with about " + remYears + " homocides left over.");
+
+//   console.log("The console will now be used to present all information and data regardless of the year it belongs to.");
+
+// //Pushing existing and creating new objects in a new array titled "years" in order to use one-dimensional arrays of compound data types.
+
+// let years = []
+//   years.push(yr1991);
+
+// n=1992
+// while (n<2022){
+//   years.push(new
+//   HomocidesDataset(n, data[n]));
+//   n++
+// }
+
+// //Using the years array in order to determine the approximate homocides per 100,000 people in Canada for a specific year.
+//   console.log(years);
+// console.log("In " + (years[5].year) + ", there were approximately " + (Number(years[5].homocides)).toFixed(1) + " homocides per 100,000 people in Canada.");
+
+//   //Using year array and the totalHomocides method to determine the total homocides within the Candian population in a specific year. Population source from: https://datacommons.org/place/country/CAN/?utm_medium=explore&mprop=count&popt=Person&hl=enlet 
+//   totalHomocides96 = years[5].totalHomocides(29610000);
+// console.log("Therefore, in " + (years[5].year) + ", there would have been a total of around " + (Number(totalHomocides96).toFixed(0)) + " homocides in Canada");
+
+
+//   //Using the perspective method in order to provide a different ratio of homocides to amount of people, in order to provide a new perspective.
+// let perspective = years[24].totalHomocides(500000);
+// console.log("To put it into perspective, the amount of homocides in the year " + (years[24].year) + ", is equivalent to around " + (Math.floor(perspective)) + " homocides per every 500,000 people.");
+
+
+
+
+// });
+
+
