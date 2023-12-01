@@ -1,0 +1,224 @@
+
+/*
+  Name:        Dataset Project (index.js)
+  Purpose:     To demonstrate my learning of concepts covered in class and relate them to data in a dataset.
+  
+  Author:      Ariana Sheikh
+  Created:     13-Sept-2023
+  Updated:     30-Nov-2023
+*/
+//parent class, population (population + year) - method idea 1 (comparing CR and CAN populations of same year), method idea 2 (calculating avg population of 5 years), method 3 idea (percentage or difference in growth or decline in population).
+//child class 1 - canada homocides - 1 method alr applied, method 2 idea (population/homocides - shows how many people per population were murdered)
+//child class 2 - costa rica homocides - 1 method alr applied, method 2 idea (comparison of canada homocides per person and CR's)
+//Installing to node.js
+//Binary search requires sorting
+
+
+//Reading the CSV file titled, "datasetnewest2.csv" into an array.
+  // const FileReader = require('filereader');
+  const fs = require('fs');
+
+  const csvParser = require('csv-parser');
+
+
+//Creating an array;
+let data = [];
+
+//In order to read the CSV file and print it by each row.
+fs.createReadStream('datasetnewest2.csv')
+.pipe(csvParser())
+.on('data', (rows) => {
+ 
+  //Pushing the data into the object.
+  data.push(rows);
+})
+.on('end', () => {
+
+  /** 
+  *This is class is used to obtain data from the file datasetnewest2.csv.
+  *
+  *@class
+  */
+  class Population{
+   /** 
+    *This function is the constructor function for a Population object.
+    *@param {number} year - This is the year of the population.
+    *@param {number} population - This is the number of people in the countries during a certain year.
+    */
+    constructor(country,year, population){
+      this.country = country;
+      this.year = year;
+      this.population = population;
+    }
+
+      /**
+      *Calculates the total amount of homocides with the consideriation of the year's population.
+      *
+      *@param {number} population - This is the population of Canada considering the year.
+      *@returns {number} - This is the total amount of homocides in Canada.
+      */
+      totalHomocides(population){
+        return this.newHomocides = 
+          population/100000*Number(this.homocides);
+      }
+    }
+  
+    /** 
+    *This class is used to obtain data from the file datasetnewest2.csv.
+    *
+    *@class
+    */
+    class CANHomocides extends Population{
+     /** 
+      *This function is the constructor function for a CANHomocides object.
+      *@param {number} year - This is the year of the intentional homocides in Canada.
+      *@param {number} homocides - This is the number of intentional homocides per 100,000 people in Canada.
+      */
+      constructor(year, population, homocides){
+      super(year, population);
+      this.homocides = homocides;
+      }
+
+        /**
+        *Calculates the total amount of homocides with the consideriation of the year's population.
+        *
+        *@param {number} population - This is the population of Canada considering the year.
+        *@returns {number} - This is the total amount of homocides in Canada.
+        */
+        totalHomocides(population){
+          return this.newHomocides = 
+            population/100000*Number(this.homocides);
+        }
+      }
+      /** 
+      *This class is used to obtain data from the file datasetnewest2.csv.
+      *
+      *@class
+      */
+      class CRHomocides extends Population{
+       /** 
+        *This function is the constructor function for a CRHomocides object.
+        *@param {number} year - This is the year of the intentional homocides in Costa Rica.
+        *@param {number} hom                                                 ocides - This is the number of intentional homocides per 100,000 people in Costa Rica.
+        */
+        constructor(year, population, homocides){
+        super(year, population);
+        this.homocides = homocides;
+        }
+
+        /**
+        *Provides a different perspective by calculating a different ratio of homocides to the amount of people per year.
+        *
+        *@param {number} amount - This is a new set amount of people that will be used to calculate the amount of homocides that would occur within it.
+        *@returns {number} - This is the amount of homocides in that would occur within the new set amount of people.
+        */
+        perspective(amount){
+          return this.amntHom = 
+          Number(this.homocides)*amount
+        } 
+      }
+
+
+
+
+    //Using year array and the totalHomocides method to determine the total homocides within the Candian population in a specific year. 
+  console.log("In " + (data[5].Year) + ", " + (data[5].Country) + " had a population of " + (data[5].Population) + " people.");
+
+  let crPerspective03 = new CRHomocides('Costa Rica',500000);
+  crPerspective03.perspective();
+  console.log("To put it into perspective, the amount of homocides in Costa Rica in the year " + (data[25].Year) + " is equivalent to " + crPerspective03 + " homocides committed for every 500,000 people." );
+              
+  console.log("In " + (data[35].Year) + ", " + (data[35].Country) + " had a population of " + (data[35].Population) + " people.");
+
+  let canHom03 = new CANHomocides("Canada",(data[24].Year),(data[24].Population),(data[24].Homocides));
+  canHom03.totalHomocides();
+  console.log("There was a total amount of " + canHom03 + " homocides committed in Canada in the year " + (data[24].Year) + ".");
+
+
+//An array with the population of Canada only
+  // let CanHom1 = [];
+
+  // //In order to read the CSV file and print it by each row.
+  // fs.createReadStream('CanadaHom.csv')
+  // .pipe(csvParser())
+  // .on('data', (rows) => {
+
+  //   //Pushing the data into the array.
+  //   CanHom1.push(rows);
+  // })
+  // .on('end', () => {
+let CanHom1 = [2.691342254,2.585753125,2.183606684,2.056506413,2.004136476,2.142337078,1.960997434,1.854382107,1.773039293,1.779468889,1.786937535,1.858095284,1.736273085,1.95853125,2.061093032,1.868936695,1.816662621,1.848365373,1.815804927,1.640000103,1.774292977,1.582502948,1.451644095,1.482857825,1.709945834,1.705731802,1.819209056,1.787486053,1.836227459,2.003235529,2.065259474]
+//Sorting the data array using bubble sorting method.
+    const bubbleSort = (arr)=> {
+      let swapped;
+
+      do{
+        swapped = false;
+        for(let i = 0; i < arr.length - 1; i++){
+          if(arr[i]> arr[i+1]){
+            [CanHom1[i],CanHom1[i+1]] = [CanHom1[i+1], CanHom1[i]]; swapped = true;
+          }
+        }
+      }
+        while(swapped);
+      return arr;
+    };
+  let dataSorted = bubbleSort(CanHom1);
+console.log("Here is the sorted list, from most homocides to least homocides throughout the years in Canada: " + dataSorted);
+
+
+
+//Performing linear search
+  function linearSearch(array, target){
+    for(let i = 0; i< array.length; i++){
+      if(array[i] === target){
+        return i;
+      }
+    }
+    return -1;
+  }
+let targetElement = 1.705731802;
+  let resultIndex = linearSearch(CanHom1, targetElement);
+
+  if(resultIndex !== -1){
+    console.log("In Canada, the amount of homocides per 100,000 people in the year 2016, which is " + targetElement + " can be found at index " + resultIndex + ".");
+  }
+  else{
+    console.log(`Element ${targetElement} not found in the array.`);
+  }
+
+
+  
+
+  
+//Conducting binary search through a function.
+  function binarySearch(CanHom1, target){
+    let low = 0;
+    let high = CanHom1.length - 1;
+
+    while (low <= high){
+      const mid = Math.floor((low + high)/2);
+      const guess = CanHom1[mid];
+
+      if (guess === target){
+        return mid;
+      } 
+      else if (guess < target){
+        low = mid + 1;
+      }
+      else{
+        high = mid - 1;
+      }
+    }
+    return - 1;
+  }
+  
+  let targetAmnt = 1.773039293
+const result = binarySearch (dataSorted, targetAmnt);
+
+  if (result!== -1){
+    console.log("In Canada, the amount of homocides per 100,000 people in the year 1999, which is " + targetAmnt + " can be found at index " + result + ".");
+  }
+  else{
+    console.log(`Target ${targetAmnt} not found in the array`);
+  }
